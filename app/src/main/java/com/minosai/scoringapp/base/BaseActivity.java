@@ -1,4 +1,4 @@
-package com.minosai.scoringapp;
+package com.minosai.scoringapp.base;
 
 import android.content.Intent;
 
