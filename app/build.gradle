@@ -36,4 +36,11 @@ dependencies {
 
     //RV
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    // RetroFit
+    implementation 'com.squareup.retrofit2:apiService:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
