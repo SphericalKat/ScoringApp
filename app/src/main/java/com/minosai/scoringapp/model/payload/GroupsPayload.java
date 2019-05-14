@@ -1,5 +1,7 @@
 package com.minosai.scoringapp.model.payload;
 
+import com.minosai.scoringapp.model.Group;
+
 import java.util.List;
 
 public class GroupsPayload {
@@ -19,19 +21,3 @@ public class GroupsPayload {
     }
 }
 
-class Group {
-
-    String name;
-
-    public Group() {
-
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
