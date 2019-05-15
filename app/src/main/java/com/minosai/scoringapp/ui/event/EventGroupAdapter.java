@@ -9,13 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.model.Group;
+import com.minosai.scoringapp.ui.event.callback.VoteStateListener;
 import com.minosai.scoringapp.ui.event.viewholder.EventGroupDisabledViewHolder;
 import com.minosai.scoringapp.ui.event.viewholder.EventGroupExpandedViewHolder;
 import com.minosai.scoringapp.ui.event.viewholder.EventGroupViewHolder;
 
 import java.util.List;
 
-public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+        implements VoteStateListener {
 
     List<Group> groups;
     int expandPosition = -1;
@@ -66,17 +68,31 @@ public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (group.isPerformed()) {
             if (expandPosition == position) {
-                ((EventGroupExpandedViewHolder) holder).bind(group);
+                ((EventGroupExpandedViewHolder) holder).bind(group, position, this);
             } else {
-                ((EventGroupViewHolder) holder).bind(group);
+                ((EventGroupViewHolder) holder).bind(group, position, this);
             }
         } else {
-            ((EventGroupDisabledViewHolder) holder).bind(group);
+            ((EventGroupDisabledViewHolder) holder).bind(group, position);
         }
     }
 
     @Override
     public int getItemCount() {
         return groups.size();
+    }
+
+    @Override
+    public void onVoteClicked(int position) {
+
+        expandPosition = position;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDoneClicked(int position) {
+
+        expandPosition = -1;
+        notifyDataSetChanged();
     }
 }

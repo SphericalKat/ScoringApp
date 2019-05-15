@@ -13,6 +13,12 @@ public class Group {
 
     }
 
+    public Group(String id, String name, boolean performed) {
+        this.id = id;
+        this.name = name;
+        this.performed = performed;
+    }
+
     public String getId() {
         return id;
     }

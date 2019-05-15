@@ -23,7 +23,7 @@ public class EventGroupDisabledViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Group group) {
+    public void bind(Group group, int position) {
 
         groupNameTextView.setText(group.getName());
     }

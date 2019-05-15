@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.model.Group;
+import com.minosai.scoringapp.ui.event.callback.VoteStateListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,12 +26,11 @@ public class EventGroupExpandedViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void bind(Group group) {
+    public void bind(Group group, int position, VoteStateListener listener) {
 
         groupNameTextView.setText(group.getName());
         groupDoneButton.setOnClickListener(view -> {
-
-            //Handle click
+            listener.onDoneClicked(position);
         });
     }
 }

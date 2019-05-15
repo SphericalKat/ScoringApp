@@ -58,7 +58,6 @@ public class ApiClient {
             public Response intercept(Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
 
-                // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
                         .header("x-access-token", token);
 
