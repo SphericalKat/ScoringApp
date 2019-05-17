@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.SignInActivity">
+            tools:context=".ui.auth.SignInActivity">
 
             <TextView
                 android:id="@+id/textView5"
@@ -49,7 +49,7 @@
                 android:layout_marginEnd="40dp"
                 android:background="@drawable/bg_translucent_grey"
                 android:fontFamily="@font/manrope_semibold"
-                android:hint="@string/employee_id_edittext"
+                android:hint="@string/employee_id"
                 android:inputType="number"
                 android:paddingStart="20dp"
                 android:textColor="@color/colorWhiteTranslucent"

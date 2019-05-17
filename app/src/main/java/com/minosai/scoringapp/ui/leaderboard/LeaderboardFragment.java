@@ -1,4 +1,4 @@
-package com.minosai.scoringapp.ui;
+package com.minosai.scoringapp.ui.leaderboard;
 
 
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  */
 public class LeaderboardFragment extends Fragment {
+
     @BindView(R.id.viewpager_tab)
     SmartTabLayout tabLayout;
     @BindView(R.id.leaderboard_container)

@@ -10,4 +10,5 @@
     <color name="colorWhiteTranslucent">#91FFFFFF</color>
     <color name="colorTextBoxGray">#F2F2F2</color>
     <color name="colorTranslucentBlack">#3B000000</color>
+    <color name="spacer_grey">#e0e0e0</color>
 </resources>

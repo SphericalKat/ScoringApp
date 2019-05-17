@@ -5,9 +5,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.minosai.scoringapp.api.ApiService;
+
 public class BaseActivity extends AppCompatActivity {
 
     protected final String TAG = this.getClass().getSimpleName();
+
+    protected ApiService apiService;
 
     protected void navigate(Class<?> cls) {
         Intent intent = new Intent(this, cls);

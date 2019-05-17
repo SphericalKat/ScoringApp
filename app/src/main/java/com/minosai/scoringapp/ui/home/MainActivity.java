@@ -1,6 +1,5 @@
 package com.minosai.scoringapp.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,19 +8,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
-import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.base.BaseActivity;
 import com.minosai.scoringapp.model.Event;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EventsPayload;
-import com.minosai.scoringapp.ui.event.EventActivity;
+import com.minosai.scoringapp.ui.auth.RegisterActivity;
+import com.minosai.scoringapp.ui.home.bottomsheet.SettingsBottomSheetFragment;
+import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragnent;
 import com.minosai.scoringapp.ui.home.callback.EventClickListener;
-import com.minosai.scoringapp.util.Constants;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,8 +32,6 @@ public class MainActivity extends BaseActivity implements EventClickListener {
     RecyclerView rvEvents;
 
     EventAdapter adapter;
-
-    ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +79,27 @@ public class MainActivity extends BaseActivity implements EventClickListener {
 
     @Override
     public void onEventClick(Event event) {
-        Intent intent = new Intent(this, EventActivity.class);
-        intent.putExtra(Constants.EXTRA_EVENT_ID, event.getId());
-        intent.putExtra(Constants.EXTRA_EVENT_NAME, event.getEventName());
-        startActivity(intent);
+        VotingBottomSheetFragnent votingBottomSheetFragnent
+                = VotingBottomSheetFragnent.newInstance(event.getId());
+        votingBottomSheetFragnent.setCancelable(false);
+        votingBottomSheetFragnent.show(
+                getSupportFragmentManager(),
+                votingBottomSheetFragnent.getTag()
+        );
+    }
+
+    @OnClick(R.id.home_button_settings)
+    void settingsOnClick() {
+        SettingsBottomSheetFragment settingsBottomSheetFragment
+                = SettingsBottomSheetFragment.getInstance();
+        settingsBottomSheetFragment.show(
+                getSupportFragmentManager(),
+                settingsBottomSheetFragment.getTag()
+        );
+    }
+
+    @OnClick(R.id.home_button_leaderboard)
+    void leaderBoardOnClick() {
+        navigate(RegisterActivity.class);
     }
 }

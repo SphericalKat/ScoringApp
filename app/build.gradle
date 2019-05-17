@@ -54,4 +54,7 @@ dependencies {
     // Number Picker
     implementation 'com.shawnlin:number-picker:2.4.8'
 
+    // MDC
+    implementation 'com.google.android.material:material:1.1.0-alpha06'
+
 }
