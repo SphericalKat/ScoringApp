@@ -13,14 +13,14 @@ import com.minosai.scoringapp.ui.event.callback.VoteStateListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventGroupExpandedViewHolder extends RecyclerView.ViewHolder {
+public class GroupExpandedViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.event_group_expanded_text_name)
     TextView groupNameTextView;
     @BindView(R.id.event_group_expanded_button_done)
     TextView groupDoneButton;
 
-    public EventGroupExpandedViewHolder(@NonNull View itemView) {
+    public GroupExpandedViewHolder(@NonNull View itemView) {
 
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -30,7 +30,7 @@ public class EventGroupExpandedViewHolder extends RecyclerView.ViewHolder {
 
         groupNameTextView.setText(group.getName());
         groupDoneButton.setOnClickListener(view -> {
-            listener.onDoneClicked(position);
+            listener.onDoneClicked(position, 1); //TODO: Fetch score from UI
         });
     }
 }

@@ -9,21 +9,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.model.Group;
+import com.minosai.scoringapp.ui.event.callback.VoteListener;
 import com.minosai.scoringapp.ui.event.callback.VoteStateListener;
-import com.minosai.scoringapp.ui.event.viewholder.EventGroupDisabledViewHolder;
-import com.minosai.scoringapp.ui.event.viewholder.EventGroupExpandedViewHolder;
-import com.minosai.scoringapp.ui.event.viewholder.EventGroupViewHolder;
+import com.minosai.scoringapp.ui.event.viewholder.GroupDisabledViewHolder;
+import com.minosai.scoringapp.ui.event.viewholder.GroupExpandedViewHolder;
+import com.minosai.scoringapp.ui.event.viewholder.GroupViewHolder;
 
 import java.util.List;
 
-public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class GroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         implements VoteStateListener {
 
     List<Group> groups;
+    VoteListener listener;
     int expandPosition = -1;
 
-    public EventGroupAdapter(List<Group> groups) {
+    public GroupAdapter(List<Group> groups, VoteListener listener) {
         this.groups = groups;
+        this.listener = listener;
     }
 
     @Override
@@ -47,15 +50,15 @@ public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case 0:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_group_disabled, parent, false);
-                return new EventGroupDisabledViewHolder(view);
+                return new GroupDisabledViewHolder(view);
             case 1:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_group, parent, false);
-                return new EventGroupViewHolder(view);
+                return new GroupViewHolder(view);
             case 2:
                 view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_group_expanded, parent, false);
-                return new EventGroupExpandedViewHolder(view);
+                return new GroupExpandedViewHolder(view);
         }
 
         return null;
@@ -68,12 +71,12 @@ public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (group.isPerformed()) {
             if (expandPosition == position) {
-                ((EventGroupExpandedViewHolder) holder).bind(group, position, this);
+                ((GroupExpandedViewHolder) holder).bind(group, position, this);
             } else {
-                ((EventGroupViewHolder) holder).bind(group, position, this);
+                ((GroupViewHolder) holder).bind(group, position, this);
             }
         } else {
-            ((EventGroupDisabledViewHolder) holder).bind(group, position);
+            ((GroupDisabledViewHolder) holder).bind(group, position);
         }
     }
 
@@ -90,8 +93,9 @@ public class EventGroupAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void onDoneClicked(int position) {
+    public void onDoneClicked(int position, int score) {
 
+        listener.vote(groups.get(position), score);
         expandPosition = -1;
         notifyDataSetChanged();
     }

@@ -12,12 +12,12 @@ import com.minosai.scoringapp.model.Group;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventGroupDisabledViewHolder extends RecyclerView.ViewHolder {
+public class GroupDisabledViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.evnet_group_disabled_text_name)
     TextView groupNameTextView;
 
-    public EventGroupDisabledViewHolder(@NonNull View itemView) {
+    public GroupDisabledViewHolder(@NonNull View itemView) {
 
         super(itemView);
         ButterKnife.bind(this, itemView);

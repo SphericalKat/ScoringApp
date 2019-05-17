@@ -7,7 +7,7 @@ public class Group {
     @SerializedName("_id")
     String id;
     String name;
-    boolean performed;
+    boolean performed = true;
 
     public Group() {
 
