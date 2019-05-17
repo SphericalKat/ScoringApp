@@ -8,17 +8,13 @@ public class RegisterRequestModel {
     String empId;
     @SerializedName("phone_number")
     String phoneNumber;
-    @SerializedName("group_name")
-    String groupName;
 
     public RegisterRequestModel(String empId, String phoneNumber, String groupName) {
         this.empId = empId;
         this.phoneNumber = phoneNumber;
-        this.groupName = groupName;
     }
 
     public RegisterRequestModel() {
-
     }
 
     public String getEmpId() {
@@ -35,13 +31,5 @@ public class RegisterRequestModel {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
     }
 }

@@ -10,7 +10,6 @@ public class Employee {
     String phoneNumber;
 
     public Employee() {
-
     }
 
     public String getEmpId() {

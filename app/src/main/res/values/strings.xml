@@ -1,3 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ScoringApp</string>
+    <string name="api_url" tools:ignore="TypographyDashes">http://ec2–3-93-140-244.compute-1.amazonaws.com:5000/</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="employee_id_edittext">Employee ID</string>
 </resources>

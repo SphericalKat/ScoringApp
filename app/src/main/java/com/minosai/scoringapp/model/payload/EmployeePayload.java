@@ -7,7 +7,6 @@ public class EmployeePayload {
     Employee employee;
 
     public EmployeePayload() {
-
     }
 
     public Employee getEmployee() {

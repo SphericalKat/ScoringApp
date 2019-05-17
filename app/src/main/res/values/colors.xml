@@ -5,5 +5,9 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorBlue">#1A69FF</color>
+    <color name="colorTranslucentGrey">#26F2F2F2</color>
     <color name="colorGray">#C4C4C4</color>
+    <color name="colorWhiteTranslucent">#91FFFFFF</color>
+    <color name="colorTextBoxGray">#F2F2F2</color>
+    <color name="colorTranslucentBlack">#3B000000</color>
 </resources>
