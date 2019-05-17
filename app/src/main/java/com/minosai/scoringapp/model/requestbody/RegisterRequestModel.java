@@ -9,7 +9,7 @@ public class RegisterRequestModel {
     @SerializedName("phone_number")
     String phoneNumber;
 
-    public RegisterRequestModel(String empId, String phoneNumber, String groupName) {
+    public RegisterRequestModel(String empId, String phoneNumber) {
         this.empId = empId;
         this.phoneNumber = phoneNumber;
     }
