@@ -51,4 +51,7 @@ dependencies {
     implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     implementation 'com.ogaclejapan.smarttablayout:utils-v4:2.0.0@aar'
 
+    // Number Picker
+    implementation 'com.shawnlin:number-picker:2.4.8'
+
 }

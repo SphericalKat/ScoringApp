@@ -47,7 +47,8 @@ public class ApiClient {
         SharedPreferences preferences = context
                 .getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
 
-        return preferences.getString(Constants.PREF_TOKEN, "");
+        // TODO: Sample token for testing purposes
+        return preferences.getString(Constants.PREF_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiIxMjM0NSIsImlhdCI6MTU1Nzk2NTY4M30.6i_oFzuYR-rk6liHUMyhpZbjfAYFWNQQoaS8FyXRZdI");
     }
 
     private static OkHttpClient getOkHttpClient(String token) {

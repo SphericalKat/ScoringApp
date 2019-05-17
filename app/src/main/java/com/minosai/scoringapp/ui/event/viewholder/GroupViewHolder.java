@@ -13,14 +13,14 @@ import com.minosai.scoringapp.ui.event.callback.VoteStateListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EventGroupViewHolder extends RecyclerView.ViewHolder {
+public class GroupViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.event_group_text_name)
     TextView groupNameTextView;
     @BindView(R.id.event_group_button_vote)
     TextView groupVoteButton;
 
-    public EventGroupViewHolder(@NonNull View itemView) {
+    public GroupViewHolder(@NonNull View itemView) {
 
         super(itemView);
         ButterKnife.bind(this, itemView);

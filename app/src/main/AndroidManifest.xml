@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.minosai.scoringapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +16,9 @@
         <activity android:name=".ui.SignInActivity" />
         <activity android:name=".ui.event.EventActivity" />
         <activity android:name=".ui.RegisterActivity">
+        <activity android:name=".ui.auth.OtpVerificationActivity" />
+        <activity android:name=".ui.auth.OtpInputActivity" />
+        <activity android:name=".ui.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
