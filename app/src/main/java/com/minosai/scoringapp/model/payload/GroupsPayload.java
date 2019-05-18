@@ -1,23 +1,22 @@
 package com.minosai.scoringapp.model.payload;
 
-import com.minosai.scoringapp.model.Group;
-
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class GroupsPayload {
 
-    List<Group> groups;
+    @SerializedName("group")
+    GroupContainer container;
 
     public GroupsPayload() {
 
     }
 
-    public List<Group> getGroups() {
-        return groups;
+    public GroupContainer getContainer() {
+        return container;
     }
 
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setContainer(GroupContainer container) {
+        this.container = container;
     }
 }
 

@@ -52,12 +52,12 @@ public class MainActivity extends BaseActivity implements EventClickListener {
                                    Response<ResponseModelPayload<EventsPayload>> response) {
                 if (!response.isSuccessful()) {
                     showToast(MainActivity.this.getString(R.string.server_error));
+                    return;
+                }
+                if (!response.body().getMeta().isStatusSuccess()) {
+                    showToast(response.body().getMeta().getMessage());
                 } else {
-                    if (!response.body().getMeta().isStatusSuccess()) {
-                        showToast(response.body().getMeta().getMessage());
-                    } else {
-                        updateUI(response.body().getPayload().getEvents());
-                    }
+                    updateUI(response.body().getPayload().getEvents());
                 }
             }
 

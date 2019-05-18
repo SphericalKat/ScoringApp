@@ -31,7 +31,7 @@ public interface ApiService {
     Call<ResponseModelPayload<EmployeePayload>> fetchEmployeeDetails();
 
     @GET("api/employee/groups")
-    Call<ResponseModelPayload<GroupsPayload>> fetchGroupsList();
+    Call<ResponseModelPayload<GroupsPayload>> fetchGroupsList(@Query(value = "event_id") String eventId);
 
     @GET("api/employee/events")
     Call<ResponseModelPayload<EventsPayload>> fetchEventsList();

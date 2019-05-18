@@ -5,12 +5,8 @@ import android.content.SharedPreferences;
 
 import com.minosai.scoringapp.util.Constants;
 
-import java.io.IOException;
-
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -48,23 +44,20 @@ public class ApiClient {
                 .getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
 
         // TODO: Sample token for testing purposes
-        return preferences.getString(Constants.PREF_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiIxMjM0NSIsImlhdCI6MTU1Nzk2NTY4M30.6i_oFzuYR-rk6liHUMyhpZbjfAYFWNQQoaS8FyXRZdI");
+        return preferences.getString(Constants.PREF_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiIxMjIyIiwiaWF0IjoxNTU4MTc2MjcxfQ._mGZJlZZyrSNDBgFbBzQiqcxd0ty0DbsxkVgz7A9r4w");
     }
 
     private static OkHttpClient getOkHttpClient(String token) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Interceptor.Chain chain) throws IOException {
-                Request original = chain.request();
+        httpClient.addInterceptor(chain -> {
+            Request original = chain.request();
 
-                Request.Builder requestBuilder = original.newBuilder()
-                        .header("x-access-token", token);
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("x-access-token", token);
 
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
         });
 
         return httpClient.build();
