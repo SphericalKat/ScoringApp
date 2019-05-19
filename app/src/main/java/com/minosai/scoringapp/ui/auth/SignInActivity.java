@@ -1,6 +1,7 @@
 package com.minosai.scoringapp.ui.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -23,6 +25,7 @@ import com.minosai.scoringapp.model.requestbody.LoginRequestModel;
 import com.minosai.scoringapp.ui.home.MainActivity;
 import com.minosai.scoringapp.util.Constants;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -79,9 +82,21 @@ public class SignInActivity extends BaseActivity {
                     if (!phoneNo.startsWith("+")) {
                         phoneNo = "+91" + phoneNo;
                     }
+                    Log.d(TAG, "onResponse: " + phoneNo);
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNo, 60, TimeUnit.SECONDS, SignInActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                         @Override
                         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                            Log.d(TAG, "onVerificationCompleted: " + "Auto-verified");
+                            FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(SignInActivity.this, task -> {
+                                if (task.isSuccessful()) {
+                                    navigate(MainActivity.class);
+                                } else {
+                                    Log.e(TAG, "onComplete: ", task.getException());
+                                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                        showToast("Invalid code entered");
+                                    }
+                                }
+                            });
                             navigateAndFinish(MainActivity.class);
                         }
 
@@ -98,7 +113,9 @@ public class SignInActivity extends BaseActivity {
 
                         @Override
                         public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                            navigateAndFinish(OtpAuthActivity.class);
+                            Intent intent = new Intent(SignInActivity.this, OtpAuthActivity.class);
+                            intent.putExtra("v_id", verificationId);
+                            startActivity(intent);
                         }
                     });
                 }

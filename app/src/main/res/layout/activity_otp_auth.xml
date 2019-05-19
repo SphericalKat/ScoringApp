@@ -41,65 +41,46 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <com.mukesh.OtpView
-                android:id="@+id/emp_id_edittext"
+                android:id="@+id/otp_pin_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:itemCount="6"
-                android:itemBackground="@drawable/bg_translucent_grey"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="48dp"
                 android:layout_marginEnd="40dp"
-                android:inputType="number"
-                app:viewType="none"
                 android:fontFamily="@font/manrope_semibold"
+                android:inputType="number"
+                android:itemBackground="@drawable/bg_translucent_grey"
                 android:textColor="@color/colorWhiteTranslucent"
                 android:textColorHint="@color/colorWhiteTranslucent"
                 android:textSize="12sp"
+                app:itemCount="6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
+                app:viewType="none"
                 tools:ignore="RtlSymmetry" />
 
-            <TextView
-                android:id="@+id/perform_login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="86dp"
-                android:background="@drawable/bg_fill_white"
-                android:fontFamily="@font/manrope_extrabold"
-                android:paddingStart="24dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="180dp"
-                android:paddingBottom="8dp"
-                android:text="Verify OTP"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/emp_id_edittext" />
-
             <!--<TextView-->
-                <!--android:id="@+id/navigate_register_button"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="200dp"-->
-                <!--android:background="@drawable/bg_transparent"-->
-                <!--android:elevation="0dp"-->
-                <!--android:fontFamily="@font/manrope_extrabold"-->
-                <!--android:paddingStart="24dp"-->
-                <!--android:paddingTop="8dp"-->
-                <!--android:paddingEnd="180dp"-->
-                <!--android:paddingBottom="8dp"-->
-                <!--android:text="Register"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:textSize="12sp"-->
-                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintHorizontal_bias="1.0"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/perform_login_button" />-->
+            <!--android:id="@+id/navigate_register_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="200dp"-->
+            <!--android:background="@drawable/bg_transparent"-->
+            <!--android:elevation="0dp"-->
+            <!--android:fontFamily="@font/manrope_extrabold"-->
+            <!--android:paddingStart="24dp"-->
+            <!--android:paddingTop="8dp"-->
+            <!--android:paddingEnd="180dp"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:text="Register"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:textSize="12sp"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintHorizontal_bias="1.0"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/perform_login_button" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -33,6 +32,7 @@ dependencies {
 
     // Firebase auth
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
 
     // UI
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -68,3 +68,4 @@ dependencies {
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
 
 }
+apply plugin: 'com.google.gms.google-services'
