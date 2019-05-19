@@ -1,15 +1,122 @@
 package com.minosai.scoringapp.ui.auth;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.minosai.scoringapp.R;
+import com.minosai.scoringapp.api.ApiClient;
+import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.base.BaseActivity;
+import com.minosai.scoringapp.model.ResponseModelPayload;
+import com.minosai.scoringapp.model.payload.EmployeePayload;
+import com.minosai.scoringapp.model.payload.LoginPayload;
+import com.minosai.scoringapp.model.requestbody.LoginRequestModel;
+import com.minosai.scoringapp.ui.home.MainActivity;
+import com.minosai.scoringapp.util.Constants;
+
+import java.util.concurrent.TimeUnit;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SignInActivity extends BaseActivity {
+    ApiService apiService;
+    @BindView(R.id.emp_id_edittext)
+    EditText empIdEditText;
+
+    @OnClick(R.id.navigate_register_button) void onClickRegister() {
+        navigateAndFinish(RegisterActivity.class);
+    }
+
+    @OnClick(R.id.perform_login_button) void onClickLogin() {
+        String empId = empIdEditText.getText().toString();
+        if (empId.isEmpty()) {
+            empIdEditText.setError("This field cannot be empty");
+            return;
+        }
+        Call<ResponseModelPayload<LoginPayload>> loginCall = apiService.loginEmployee(new LoginRequestModel(empId));
+        loginCall.enqueue(new Callback<ResponseModelPayload<LoginPayload>>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseModelPayload<LoginPayload>> call, @NonNull Response<ResponseModelPayload<LoginPayload>> response) {
+                if (response.body() == null) {
+                    showToast("Some error occured, please try again.");
+                } else {
+                    String token = response.body().getPayload().getToken();
+                    getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().putString(Constants.PREF_TOKEN, token).apply();
+                    performOtpAuth(token);
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseModelPayload<LoginPayload>> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void performOtpAuth(String token) {
+        Call<ResponseModelPayload<EmployeePayload>> fetchEmployeeCall = apiService.fetchEmployeeDetails();
+        fetchEmployeeCall.enqueue(new Callback<ResponseModelPayload<EmployeePayload>>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseModelPayload<EmployeePayload>> call, @NonNull Response<ResponseModelPayload<EmployeePayload>> response) {
+                if (response.body() == null) {
+                    showToast("Some error occurred, try again later.");
+                } else {
+                    String phoneNo = response.body().getPayload().getEmployee().getPhoneNumber();
+                    if (!phoneNo.startsWith("+")) {
+                        phoneNo = "+91" + phoneNo;
+                    }
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNo, 60, TimeUnit.SECONDS, SignInActivity.this, new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                        @Override
+                        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+                            navigateAndFinish(MainActivity.class);
+                        }
+
+                        @Override
+                        public void onVerificationFailed(FirebaseException e) {
+                            Log.e(TAG, "onVerificationFailed", e);
+
+                            if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                                showToast("Invalid request.");
+                            } else if (e instanceof FirebaseTooManyRequestsException) {
+                                showToast("SMS quota exceeded!");
+                            }
+                        }
+
+                        @Override
+                        public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                            navigateAndFinish(OtpAuthActivity.class);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseModelPayload<EmployeePayload>> call, @NonNull Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        ButterKnife.bind(this);
+
+        apiService = ApiClient.getApiService(this);
     }
 }

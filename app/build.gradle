@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -30,6 +31,9 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+    // Firebase auth
+    implementation 'com.google.firebase:firebase-auth:17.0.0'
+
     // UI
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -59,5 +63,8 @@ dependencies {
 
     // SnackProgressBar
 //    implementation 'com.github.tingyik90:snackprogressbar:6.1'
+
+    // OTP pinview
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
 
 }

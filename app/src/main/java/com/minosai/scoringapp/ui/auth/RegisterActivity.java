@@ -6,19 +6,27 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.base.BaseActivity;
+import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EmployeePayload;
 import com.minosai.scoringapp.model.requestbody.RegisterRequestModel;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Converter;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {
@@ -42,7 +50,7 @@ public class RegisterActivity extends BaseActivity {
 
     @OnClick(R.id.navigate_login_button)
     void loginOnClick() {
-        navigate(SignInActivity.class);
+        navigateAndFinish(SignInActivity.class);
     }
 
     @OnClick(R.id.perform_register_button)
@@ -62,14 +70,17 @@ public class RegisterActivity extends BaseActivity {
         Call<ResponseModelPayload<EmployeePayload>> registerCall = apiService.registerEmployee(new RegisterRequestModel(empId, phoneNo));
         registerCall.enqueue(new Callback<ResponseModelPayload<EmployeePayload>>() {
             @Override
-            public void onResponse(@NonNull Call<ResponseModelPayload<EmployeePayload>> call,
-                                   @NonNull Response<ResponseModelPayload<EmployeePayload>> response) {
+            public void onResponse(@NonNull Call<ResponseModelPayload<EmployeePayload>> call, @NonNull Response<ResponseModelPayload<EmployeePayload>> response) {
                 if (response.body() != null && !response.body().getMeta().isStatusSuccess()) {
                     showToast(response.body().getMeta().getMessage());
                     return;
                 }
                 if (response.body() == null) {
-                    Log.e(TAG, "onResponse: " + response.errorBody());
+                    if (response.code() == 400) {
+                        showToast("This employee ID is already registered");
+                    } else if (response.code() == 500) {
+                        showToast("An error occurred, please try again later.");
+                    }
                     return;
                 }
                 showToast("Registration successful");
@@ -92,5 +103,16 @@ public class RegisterActivity extends BaseActivity {
             return false;
         }
         return true;
+    }
+
+    private Meta parseError(Response<?> response) {
+        Converter<ResponseBody, Meta> converter = ApiClient.getRetrofit().responseBodyConverter(Meta.class, new Annotation[0]);
+        Meta error;
+        try {
+            error = converter.convert(Objects.requireNonNull(response.errorBody()));
+        } catch (Exception e) {
+            return new Meta();
+        }
+        return error;
     }
 }

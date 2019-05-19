@@ -16,6 +16,12 @@ public class ApiClient {
 
     public static ApiService apiService = null;
 
+    public static Retrofit getRetrofit() {
+        return retrofit;
+    }
+
+    private static Retrofit retrofit = null;
+
     public static ApiService getApiService(Context context) {
 
         if (apiService == null) {
@@ -29,13 +35,13 @@ public class ApiClient {
 
         String token = getToken(context);
         OkHttpClient okHttpClient = getOkHttpClient(token);
-
-        apiService = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ApiService.class);
+                .build();
+
+        apiService = retrofit.create(ApiService.class);
     }
 
     private static String getToken(Context context) {
