@@ -1,11 +1,13 @@
 package com.minosai.scoringapp.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.base.BaseActivity;
@@ -16,7 +18,9 @@ import com.minosai.scoringapp.ui.auth.RegisterActivity;
 import com.minosai.scoringapp.ui.home.bottomsheet.SettingsBottomSheetFragment;
 import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragnent;
 import com.minosai.scoringapp.ui.home.callback.EventClickListener;
+import com.minosai.scoringapp.ui.leaderboard.LeaderboardActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,6 +36,9 @@ public class MainActivity extends BaseActivity implements EventClickListener {
     RecyclerView rvEvents;
 
     EventAdapter adapter;
+
+    List<Event> events = new ArrayList<>();
+    Gson gson = new Gson();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +64,8 @@ public class MainActivity extends BaseActivity implements EventClickListener {
                 if (!response.body().getMeta().isStatusSuccess()) {
                     showToast(response.body().getMeta().getMessage());
                 } else {
-                    updateUI(response.body().getPayload().getEvents());
+                    events = response.body().getPayload().getEvents();
+                    updateUI(events);
                 }
             }
 
@@ -100,6 +108,13 @@ public class MainActivity extends BaseActivity implements EventClickListener {
 
     @OnClick(R.id.home_button_leaderboard)
     void leaderBoardOnClick() {
-        navigate(RegisterActivity.class);
+        if (events.isEmpty()) {
+            showToast("There aren't any events!");
+        } else {
+            String json = gson.toJson(events);
+            Intent intent = new Intent(MainActivity.this, LeaderboardActivity.class);
+            intent.putExtra("event_json", json);
+            startActivity(intent);
+        }
     }
 }

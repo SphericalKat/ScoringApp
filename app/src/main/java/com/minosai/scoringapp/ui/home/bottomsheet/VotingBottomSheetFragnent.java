@@ -25,6 +25,8 @@ import com.minosai.scoringapp.model.payload.GroupsPayload;
 import com.minosai.scoringapp.model.requestbody.VoteRequestModel;
 import com.shawnlin.numberpicker.NumberPicker;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -88,7 +90,7 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
 
                 Group activeGroup = response.body().getPayload().getContainer().getActiveGroup();
                 if (activeGroup == null) {
-                    Toast.makeText(getContext(), getContext().getString(R.string.response_error),
+                    Toast.makeText(getContext(), Objects.requireNonNull(getContext()).getString(R.string.response_error),
                             Toast.LENGTH_SHORT).show();
                     dismiss();
                     return;

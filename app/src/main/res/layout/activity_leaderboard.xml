@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.leaderboard.LeaderboardActivity">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Leaderboard"
+        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/viewpager_tab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:stl_indicatorAlwaysInCenter="false"
+        android:layout_marginTop="4dp"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorThickness="0dp"
+        app:stl_underlineThickness="0dp"
+        app:stl_customTabTextLayoutId="@layout/item_tab_layout"
+        app:stl_customTabTextViewId="@id/item_tab_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:stl_defaultTabTextColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+    <FrameLayout
+        android:id="@+id/leaderboard_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager_tab">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_leaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

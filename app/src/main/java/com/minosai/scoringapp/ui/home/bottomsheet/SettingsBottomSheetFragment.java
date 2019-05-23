@@ -1,6 +1,8 @@
 package com.minosai.scoringapp.ui.home.bottomsheet;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +15,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.api.ApiService;
+import com.minosai.scoringapp.base.BaseActivity;
 import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModel;
 import com.minosai.scoringapp.model.requestbody.EmpIdRequestModel;
+import com.minosai.scoringapp.ui.auth.SignInActivity;
+import com.minosai.scoringapp.util.Constants;
 import com.minosai.scoringapp.util.CustomLinearLayout;
 
 import butterknife.BindView;
@@ -63,7 +72,10 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
 
     @OnClick(R.id.settings_button_logout)
     void logoutOnClick() {
-
+        requireActivity().getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(requireActivity(), SignInActivity.class));
+        requireActivity().finish();
     }
 
     @OnClick(R.id.settings_button_update)

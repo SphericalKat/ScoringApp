@@ -2,11 +2,11 @@ package com.minosai.scoringapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LeaderboardItem {
+public class LeaderboardItem implements Comparable<LeaderboardItem>{
 
     @SerializedName("group_name")
     String groupName;
-    int score;
+    String score;
 
     public LeaderboardItem() {
 
@@ -20,11 +20,16 @@ public class LeaderboardItem {
         this.groupName = groupName;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
+    }
+
+    @Override
+    public int compareTo(LeaderboardItem o) {
+        return (int) (Float.parseFloat(o.getScore()) - Float.parseFloat(this.getScore()));
     }
 }

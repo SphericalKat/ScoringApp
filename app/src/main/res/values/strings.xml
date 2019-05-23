@@ -2,7 +2,7 @@
     <string name="app_name">ScoringApp</string>
 
     <string name="server_error">Server error</string>
-    <string name="response_error">Something went wrong</string>
+    <string name="response_error">There is no active group</string>
     <string name="network_error">Network error</string>
     <string name="api_url" tools:ignore="TypographyDashes">http://ec2–3-93-140-244.compute-1.amazonaws.com:5000/</string>
 

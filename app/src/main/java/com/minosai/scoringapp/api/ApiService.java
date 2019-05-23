@@ -4,10 +4,12 @@ import com.minosai.scoringapp.model.ResponseModel;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EmployeePayload;
 import com.minosai.scoringapp.model.payload.EventsPayload;
+import com.minosai.scoringapp.model.payload.GlobalLeaderboardPayload;
 import com.minosai.scoringapp.model.payload.GroupsPayload;
 import com.minosai.scoringapp.model.payload.LeaderboardPayload;
 import com.minosai.scoringapp.model.payload.LoginPayload;
 import com.minosai.scoringapp.model.requestbody.EmpIdRequestModel;
+import com.minosai.scoringapp.model.requestbody.GlobalLeaderboardItem;
 import com.minosai.scoringapp.model.requestbody.LoginRequestModel;
 import com.minosai.scoringapp.model.requestbody.RegisterRequestModel;
 import com.minosai.scoringapp.model.requestbody.VoteRequestModel;
@@ -35,6 +37,9 @@ public interface ApiService {
 
     @GET("api/employee/events")
     Call<ResponseModelPayload<EventsPayload>> fetchEventsList();
+
+    @GET("api/employee/global-leaderboard")
+    Call<ResponseModelPayload<GlobalLeaderboardPayload>> fetchGlobalLeaderboard();
 
     @GET("api/employee/leaderboard")
     Call<ResponseModelPayload<LeaderboardPayload>> fetchLeaderboard(@Query(value = "event_id") String eventId);

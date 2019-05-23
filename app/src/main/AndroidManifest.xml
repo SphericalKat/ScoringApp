@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.leaderboard.LeaderboardActivity"></activity>
         <activity android:name=".ui.auth.OtpAuthActivity" />
         <activity android:name=".ui.auth.SignInActivity" />
         <activity android:name=".ui.event.EventActivity" />
