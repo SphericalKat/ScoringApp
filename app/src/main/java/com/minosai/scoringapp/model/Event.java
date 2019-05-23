@@ -9,6 +9,16 @@ public class Event {
     boolean active;
     @SerializedName("event_name")
     String eventName;
+    @SerializedName("active_group")
+    String activeGroup;
+
+    public String getActiveGroup() {
+        return activeGroup;
+    }
+
+    public void setActiveGroup(String activeGroup) {
+        this.activeGroup = activeGroup;
+    }
 
     public Event() {
 

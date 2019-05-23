@@ -16,5 +16,5 @@
         android:foreground="@drawable/bg_ripple"
         android:padding="16dp"
         android:text="TextView"
-        android:textColor="@color/colorBlue" />
+        android:textColor="@color/disabled_selector" />
 </LinearLayout>

@@ -25,8 +25,9 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Event event, EventClickListener listener) {
         eventNameTextView.setText(event.getEventName());
-        eventNameTextView.setOnClickListener(view -> {
-            listener.onEventClick(event);
-        });
+        eventNameTextView.setEnabled((event.getActiveGroup() != null));
+        if (event.getActiveGroup() != null) {
+            eventNameTextView.setOnClickListener(view -> listener.onEventClick(event));
+        }
     }
 }

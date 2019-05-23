@@ -16,10 +16,10 @@ import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
-    List<Event> events;
-    EventClickListener listener;
+    private List<Event> events;
+    private EventClickListener listener;
 
-    public EventAdapter(List<Event> events, EventClickListener listener) {
+    EventAdapter(List<Event> events, EventClickListener listener) {
         this.events = events;
         this.listener = listener;
     }
