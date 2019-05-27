@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.gson.Gson;
 import com.minosai.scoringapp.R;
@@ -35,6 +36,9 @@ public class MainActivity extends BaseActivity implements EventClickListener {
     @BindView(R.id.home_rv_events)
     RecyclerView rvEvents;
 
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     EventAdapter adapter;
 
     List<Event> events = new ArrayList<>();
@@ -50,6 +54,7 @@ public class MainActivity extends BaseActivity implements EventClickListener {
         apiService = ApiClient.getApiService(this);
 
         fetchData();
+        swipeRefreshLayout.setOnRefreshListener(this::fetchData);
     }
 
     private void fetchData() {
@@ -83,6 +88,7 @@ public class MainActivity extends BaseActivity implements EventClickListener {
         rvEvents.setHasFixedSize(true);
         rvEvents.setLayoutManager(new LinearLayoutManager(this));
         rvEvents.setAdapter(adapter);
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
