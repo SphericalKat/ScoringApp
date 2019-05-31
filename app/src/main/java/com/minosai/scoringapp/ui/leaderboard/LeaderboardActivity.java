@@ -73,7 +73,9 @@ public class LeaderboardActivity extends BaseActivity {
                     for (GlobalLeaderboardItem item : globalLeaderboardItems) {
                         for (LeaderboardItem leaderboardItem : item.getLeaderboard()) {
                             if (!groupScoresMap.containsKey(leaderboardItem.getGroupName())) {
-                                groupScoresMap.put(leaderboardItem.getGroupName(), leaderboardItem.getScore());
+                                if (leaderboardItem.getScore() != null) {
+                                    groupScoresMap.put(leaderboardItem.getGroupName(), leaderboardItem.getScore());
+                                }
                             } else {
                                 float prevScore = Float.parseFloat(Objects.requireNonNull(groupScoresMap.get(leaderboardItem.getGroupName())));
                                 groupScoresMap.put(leaderboardItem.getGroupName(), String.valueOf(prevScore + Float.parseFloat(leaderboardItem.getScore())));

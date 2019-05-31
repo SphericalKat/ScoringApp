@@ -91,7 +91,11 @@ public class LeaderboardTabFragment extends Fragment {
                         Toast.makeText(requireContext(), response.body().getMeta().getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         leaderboardItems.clear();
-                        leaderboardItems.addAll(response.body().getPayload().getLeaderboardItems());
+                        for (LeaderboardItem item: response.body().getPayload().getLeaderboardItems()) {
+                            if (item.getScore() != null) {
+                                leaderboardItems.add(item);
+                            }
+                        }
                         adapter.notifyDataSetChanged();
                     }
                 }
