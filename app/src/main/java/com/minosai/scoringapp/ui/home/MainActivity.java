@@ -15,7 +15,6 @@ import com.minosai.scoringapp.base.BaseActivity;
 import com.minosai.scoringapp.model.Event;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EventsPayload;
-import com.minosai.scoringapp.ui.auth.RegisterActivity;
 import com.minosai.scoringapp.ui.home.bottomsheet.SettingsBottomSheetFragment;
 import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragnent;
 import com.minosai.scoringapp.ui.home.callback.EventClickListener;
@@ -38,11 +37,14 @@ public class MainActivity extends BaseActivity implements EventClickListener {
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefreshLayout;
-
     EventAdapter adapter;
-
     List<Event> events = new ArrayList<>();
     Gson gson = new Gson();
+
+    @OnClick(R.id.about_us)
+    void onClickAbout() {
+        navigate(AttribouterActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

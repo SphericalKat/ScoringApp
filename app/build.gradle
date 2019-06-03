@@ -27,8 +27,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     // Firebase auth
     implementation 'com.google.firebase:firebase-auth:17.0.0'
@@ -59,13 +59,16 @@ dependencies {
     implementation 'com.shawnlin:number-picker:2.4.8'
 
     // MDC
-    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
 
     // SnackProgressBar
 //    implementation 'com.github.tingyik90:snackprogressbar:6.1'
 
     // OTP pinview
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.3'
+
+    // Attribouter
+    implementation 'me.jfenn:attribouter:0.1.5'
 
 }
 apply plugin: 'com.google.gms.google-services'

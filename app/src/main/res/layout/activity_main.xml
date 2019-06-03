@@ -32,6 +32,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_settings_black_24dp" />
 
+    <ImageView
+        android:id="@+id/about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_outline_round_blue"
+        android:foreground="@drawable/bg_ripple_round"
+        android:padding="8dp"
+        android:tint="@color/colorBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/home_button_settings"
+        app:layout_constraintEnd_toStartOf="@+id/home_button_settings"
+        app:layout_constraintTop_toTopOf="@+id/home_button_settings"
+        app:srcCompat="@drawable/ic_info" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier3"
         android:layout_width="wrap_content"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<about>
+    <me.jfenn.attribouter.wedges.AppWedge
+        icon="@mipmap/ic_launcher"
+        description="A simple and elegant voting app">
+    </me.jfenn.attribouter.wedges.AppWedge>
+
+    <me.jfenn.attribouter.wedges.ContributorsWedge
+        showDefaults="false"
+        title="The team">
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Abhinav"
+            avatar="https://avatars.githubusercontent.com/u/24620962"
+            login="anubis-me"
+            task="Project manager" />
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Amogh Lele"
+            avatar="https://avatars.githubusercontent.com/u/31761843"
+            login="ATechnoHazard"
+            task="Android developer" />
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Aritro Paul"
+            avatar="https://avatars.githubusercontent.com/u/15200774"
+            bio="^Press F to pay respects"
+            login="aritropaul"
+            task="UI designer and iOS developer">
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Parth Gupta"
+            avatar="https://i.ibb.co/RTL9QxF/91-99994-52679-20190603-222826.jpg"
+            task="User experience">
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Yashvardhan Kukreja"
+            avatar="https://avatars.githubusercontent.com/u/25801460"
+            bio="^Bugs bro bugs"
+            login="yashvardhan-kukreja"
+            task="Backend developer" >
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Yaswant Narayan"
+            avatar="https://avatars.githubusercontent.com/u/20679196"
+            bio="^My days turn into nights all the time"
+            login="MINOSai"
+            task="Android developer">
+        </me.jfenn.attribouter.wedges.ContributorWedge>
+    </me.jfenn.attribouter.wedges.ContributorsWedge>
+</about>
