@@ -15,39 +15,35 @@
             task="Project manager" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
-            name="^Amogh Lele"
-            avatar="https://avatars.githubusercontent.com/u/31761843"
-            login="ATechnoHazard"
-            task="Android developer" />
-
-        <me.jfenn.attribouter.wedges.ContributorWedge
-            name="^Aritro Paul"
-            avatar="https://avatars.githubusercontent.com/u/15200774"
-            bio="^Press F to pay respects"
-            login="aritropaul"
-            task="UI designer and iOS developer">
-        </me.jfenn.attribouter.wedges.ContributorWedge>
-
-        <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Parth Gupta"
-            avatar="https://i.ibb.co/RTL9QxF/91-99994-52679-20190603-222826.jpg"
-            task="User experience">
-        </me.jfenn.attribouter.wedges.ContributorWedge>
+            avatar="https://i.ibb.co/sPss0wj/IMAGE-2019-06-15-22-13-57.jpg"
+            task="User experience" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Yashvardhan Kukreja"
             avatar="https://avatars.githubusercontent.com/u/25801460"
             bio="^Bugs bro bugs"
             login="yashvardhan-kukreja"
-            task="Backend developer" >
-        </me.jfenn.attribouter.wedges.ContributorWedge>
+            task="Backend developer" />
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Aritro Paul"
+            avatar="https://avatars.githubusercontent.com/u/15200774"
+            bio="^Press F to pay respects"
+            login="aritropaul"
+            task="UI designer and iOS developer" />
+
+        <me.jfenn.attribouter.wedges.ContributorWedge
+            name="^Amogh Lele"
+            avatar="https://avatars.githubusercontent.com/u/31761843"
+            login="ATechnoHazard"
+            task="Android developer" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Yaswant Narayan"
             avatar="https://avatars.githubusercontent.com/u/20679196"
             bio="^My days turn into nights all the time"
             login="MINOSai"
-            task="Android developer">
-        </me.jfenn.attribouter.wedges.ContributorWedge>
+            task="Android developer" />
     </me.jfenn.attribouter.wedges.ContributorsWedge>
 </about>

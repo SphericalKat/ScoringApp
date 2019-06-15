@@ -50,7 +50,7 @@ public class ApiClient {
                 .getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
 
         // TODO: Sample token for testing purposes
-        return preferences.getString(Constants.PREF_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiIxMjIyIiwiaWF0IjoxNTU4MTc2MjcxfQ._mGZJlZZyrSNDBgFbBzQiqcxd0ty0DbsxkVgz7A9r4w");
+        return preferences.getString(Constants.PREF_TOKEN, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiI5OTk5IiwiaWF0IjoxNTYwNjA0MTM2fQ.lMYwuUH8P_3X-IGqoaG1ZDzk0gnwsUYGbaM4Cols0z0");
     }
 
     private static OkHttpClient getOkHttpClient(String token) {

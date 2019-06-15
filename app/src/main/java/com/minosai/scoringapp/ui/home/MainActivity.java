@@ -56,10 +56,13 @@ public class MainActivity extends BaseActivity implements EventClickListener {
         apiService = ApiClient.getApiService(this);
 
         fetchData();
+
         swipeRefreshLayout.setOnRefreshListener(this::fetchData);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
     }
 
     private void fetchData() {
+        swipeRefreshLayout.setRefreshing(true);
         apiService.fetchEventsList().enqueue(new Callback<ResponseModelPayload<EventsPayload>>() {
             @Override
             public void onResponse(Call<ResponseModelPayload<EventsPayload>> call,
@@ -80,6 +83,7 @@ public class MainActivity extends BaseActivity implements EventClickListener {
             public void onFailure(Call<ResponseModelPayload<EventsPayload>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
                 showToast(MainActivity.this.getString(R.string.network_error));
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }

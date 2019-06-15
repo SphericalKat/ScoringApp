@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.gson.Gson;
@@ -18,7 +18,6 @@ import com.minosai.scoringapp.model.LeaderboardItem;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.GlobalLeaderboardPayload;
 import com.minosai.scoringapp.model.requestbody.GlobalLeaderboardItem;
-import com.minosai.scoringapp.ui.home.MainActivity;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.Bundler;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
@@ -26,7 +25,6 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,11 +37,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LeaderboardActivity extends BaseActivity {
+
+    ApiService apiService;
+
     @BindView(R.id.viewpager_leaderboard)
     ViewPager viewPager;
-
     @BindView(R.id.viewpager_tab)
     SmartTabLayout viewPagerTab;
+    @BindView(R.id.leaderboard_swiperefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     List<Event> events;
     List<GlobalLeaderboardItem> globalLeaderboardItems;
@@ -54,13 +56,23 @@ public class LeaderboardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboard);
-        ButterKnife.bind(this);
-        ApiService apiService = ApiClient.getApiService(this);
-        Call<ResponseModelPayload<GlobalLeaderboardPayload>> globalCall = apiService.fetchGlobalLeaderboard();
 
+        ButterKnife.bind(this);
+        apiService = ApiClient.getApiService(this);
+
+        fetchData();
+
+        swipeRefreshLayout.setOnRefreshListener(this::fetchData);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
+    }
+
+    private void fetchData() {
+        swipeRefreshLayout.setRefreshing(true);
+        Call<ResponseModelPayload<GlobalLeaderboardPayload>> globalCall = apiService.fetchGlobalLeaderboard();
         globalCall.enqueue(new Callback<ResponseModelPayload<GlobalLeaderboardPayload>>() {
             @Override
             public void onResponse(@NonNull Call<ResponseModelPayload<GlobalLeaderboardPayload>> call, @NonNull Response<ResponseModelPayload<GlobalLeaderboardPayload>> response) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (!response.isSuccessful()) {
                     showToast(LeaderboardActivity.this.getString(R.string.server_error));
                     return;
@@ -113,9 +125,10 @@ public class LeaderboardActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call<ResponseModelPayload<GlobalLeaderboardPayload>> call, @NonNull Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
+                showToast(LeaderboardActivity.this.getString(R.string.network_error));
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
-
     }
 
     private List<Event> getEventsFromJson(String jsonString) {

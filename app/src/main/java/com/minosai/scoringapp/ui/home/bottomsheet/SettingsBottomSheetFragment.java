@@ -15,15 +15,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.api.ApiService;
-import com.minosai.scoringapp.base.BaseActivity;
 import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModel;
 import com.minosai.scoringapp.model.requestbody.EmpIdRequestModel;
@@ -82,7 +78,7 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
     void updateOnClick() {
 
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(empIdEditText, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        imm.hideSoftInputFromWindow(empIdEditText.getWindowToken(), 0);
 
         String newId = empIdEditText.getText().toString();
         if (newId.isEmpty()) {

@@ -37,8 +37,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
-    <FrameLayout
-        android:id="@+id/leaderboard_container"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/leaderboard_swiperefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -46,10 +46,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager_tab">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager_leaderboard"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/leaderboard_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewpager_tab">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_leaderboard"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
