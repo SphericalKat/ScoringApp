@@ -32,6 +32,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,9 +65,11 @@ public class LeaderboardActivity extends BaseActivity {
 
         swipeRefreshLayout.setOnRefreshListener(this::fetchData);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorBlue);
+        swipeRefreshLayout.setEnabled(false);
     }
 
-    private void fetchData() {
+    @OnClick(R.id.leaderboard_button_refresh)
+    void fetchData() {
         swipeRefreshLayout.setRefreshing(true);
         Call<ResponseModelPayload<GlobalLeaderboardPayload>> globalCall = apiService.fetchGlobalLeaderboard();
         globalCall.enqueue(new Callback<ResponseModelPayload<GlobalLeaderboardPayload>>() {

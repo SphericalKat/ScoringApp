@@ -13,6 +13,7 @@
         android:layout_marginStart="24dp"
         android:text="Events"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/home_button_settings"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +81,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="All Events"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/barrier3" />
 

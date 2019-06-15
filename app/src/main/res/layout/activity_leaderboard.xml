@@ -9,32 +9,47 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:text="Leaderboard"
-        android:textSize="30sp"
         android:textColor="@android:color/black"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/leaderboard_button_refresh"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/bg_outline_round_blue"
+        android:foreground="@drawable/bg_ripple_round"
+        android:padding="8dp"
+        android:tint="@color/colorBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:srcCompat="@drawable/ic_refresh_black_24dp" />
+
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewpager_tab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        app:stl_indicatorAlwaysInCenter="false"
-        android:layout_marginTop="4dp"
-        app:stl_dividerThickness="0dp"
-        app:stl_indicatorThickness="0dp"
-        app:stl_underlineThickness="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:stl_customTabTextLayoutId="@layout/item_tab_layout"
         app:stl_customTabTextViewId="@id/item_tab_textview"
-        app:layout_constraintEnd_toEndOf="parent"
         app:stl_defaultTabTextColor="@android:color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorAlwaysInCenter="false"
+        app:stl_indicatorThickness="0dp"
+        app:stl_underlineThickness="0dp" />
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
