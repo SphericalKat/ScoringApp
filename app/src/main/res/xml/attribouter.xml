@@ -2,7 +2,7 @@
 <about>
     <me.jfenn.attribouter.wedges.AppWedge
         icon="@mipmap/ic_launcher"
-        description="A simple and elegant voting app">
+        description="A simple and elegant scoring app">
     </me.jfenn.attribouter.wedges.AppWedge>
 
     <me.jfenn.attribouter.wedges.ContributorsWedge
@@ -11,39 +11,46 @@
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Abhinav"
             avatar="https://avatars.githubusercontent.com/u/24620962"
+            bio="^16BME0911"
             login="anubis-me"
+            blog="https://www.linkedin.com/in/abhinav-gupta-774a3512a/"
             task="Project manager" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Parth Gupta"
             avatar="https://i.ibb.co/sPss0wj/IMAGE-2019-06-15-22-13-57.jpg"
+            bio="^16BIT0304"
+            blog="https://www.linkedin.com/in/parth-gupta-724064140/"
             task="User experience" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Yashvardhan Kukreja"
             avatar="https://avatars.githubusercontent.com/u/25801460"
-            bio="^Bugs bro bugs"
+            bio="^16BCE0320"
             login="yashvardhan-kukreja"
+            blog="https://www.linkedin.com/in/yashvardhan-kukreja-607b24142"
             task="Backend developer" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Aritro Paul"
             avatar="https://avatars.githubusercontent.com/u/15200774"
-            bio="^Press F to pay respects"
+            bio="^16BCE3072"
             login="aritropaul"
             task="UI designer and iOS developer" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Amogh Lele"
             avatar="https://avatars.githubusercontent.com/u/31761843"
+            bio="^17BEE0054"
             login="ATechnoHazard"
             task="Android developer" />
 
         <me.jfenn.attribouter.wedges.ContributorWedge
             name="^Yaswant Narayan"
             avatar="https://avatars.githubusercontent.com/u/20679196"
-            bio="^My days turn into nights all the time"
+            bio="^16BCE0587"
             login="MINOSai"
+            blog="https://stackoverflow.com/users/7894911/yaswant-narayan"
             task="Android developer" />
     </me.jfenn.attribouter.wedges.ContributorsWedge>
 </about>
