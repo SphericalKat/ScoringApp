@@ -100,7 +100,7 @@ public class SignInActivity extends BaseActivity {
                             Log.d(TAG, "onVerificationCompleted: " + "Auto-verified");
                             FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(SignInActivity.this, task -> {
                                 if (task.isSuccessful()) {
-                                    navigate(MainActivity.class);
+                                    navigateAndFinish(MainActivity.class);
                                 } else {
                                     Log.e(TAG, "onComplete: ", task.getException());
                                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -126,7 +126,7 @@ public class SignInActivity extends BaseActivity {
                         public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                             Intent intent = new Intent(SignInActivity.this, OtpAuthActivity.class);
                             intent.putExtra("v_id", verificationId);
-                            startActivity(intent);
+                            navigateAndFinish(intent);
                         }
                     });
                 }
