@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <about>
     <me.jfenn.attribouter.wedges.AppWedge
-        icon="@mipmap/ic_launcher"
+        icon="@drawable/icon"
         description="A simple and elegant scoring app">
     </me.jfenn.attribouter.wedges.AppWedge>
 

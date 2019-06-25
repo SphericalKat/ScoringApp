@@ -26,7 +26,7 @@ public class FcmNotification {
 
                 .setDefaults(Notification.DEFAULT_ALL)
 
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(message)
 
