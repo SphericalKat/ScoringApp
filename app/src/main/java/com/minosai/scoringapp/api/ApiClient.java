@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String BASE_URL = "http://ec2-3-93-140-244.compute-1.amazonaws.com:5000/";
+    private static final String BASE_URL = "http://scoring.vit.ac.in/";
 
     private static ApiService apiService = null;
     private static Retrofit retrofit = null;
