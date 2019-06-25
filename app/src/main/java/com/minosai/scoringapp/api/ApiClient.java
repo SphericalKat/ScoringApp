@@ -49,7 +49,6 @@ public class ApiClient {
         SharedPreferences preferences = context
                 .getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
 
-        // TODO: Sample token for testing purposes
         return preferences.getString(Constants.PREF_TOKEN, "");
     }
 
