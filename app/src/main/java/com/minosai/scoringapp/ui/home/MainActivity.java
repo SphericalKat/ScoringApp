@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -20,6 +21,7 @@ import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragnent;
 import com.minosai.scoringapp.ui.home.callback.EventClickListener;
 import com.minosai.scoringapp.ui.leaderboard.LeaderboardActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,10 +67,14 @@ public class MainActivity extends BaseActivity implements EventClickListener {
         swipeRefreshLayout.setRefreshing(true);
         apiService.fetchEventsList().enqueue(new Callback<ResponseModelPayload<EventsPayload>>() {
             @Override
-            public void onResponse(Call<ResponseModelPayload<EventsPayload>> call,
-                                   Response<ResponseModelPayload<EventsPayload>> response) {
+            public void onResponse(@NonNull Call<ResponseModelPayload<EventsPayload>> call, @NonNull Response<ResponseModelPayload<EventsPayload>> response) {
                 if (!response.isSuccessful()) {
                     showToast(MainActivity.this.getString(R.string.server_error));
+                    try {
+                        Log.d(TAG, "onResponse: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     return;
                 }
                 if (!response.body().getMeta().isStatusSuccess()) {

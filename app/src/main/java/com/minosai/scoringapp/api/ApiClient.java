@@ -12,28 +12,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://ec2-3-93-140-244.compute-1.amazonaws.com:5000/";
+    private static final String BASE_URL = "http://scoring.vit.ac.in/";
 
-    public static ApiService apiService = null;
+    private static ApiService apiService = null;
+    private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {
         return retrofit;
     }
 
-    private static Retrofit retrofit = null;
+    public static ApiService getApiService(Context context, String token) {
+
+        buildApiClient(context, token);
+
+
+        return apiService;
+    }
 
     public static ApiService getApiService(Context context) {
-
         if (apiService == null) {
-            buildApiClient(context);
+            buildApiClient(context, "");
         }
 
         return apiService;
     }
 
-    private static void buildApiClient(Context context) {
+    private static void buildApiClient(Context context, String tokenn) {
 
         String token = getToken(context);
+        if (!tokenn.equals("")) {
+            token = tokenn;
+        }
         OkHttpClient okHttpClient = getOkHttpClient(token);
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -49,7 +58,6 @@ public class ApiClient {
         SharedPreferences preferences = context
                 .getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
 
-        // TODO: Sample token for testing purposes
         return preferences.getString(Constants.PREF_TOKEN, "");
     }
 

@@ -1,5 +1,6 @@
 package com.minosai.scoringapp.ui.auth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,12 +32,15 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignInActivity extends BaseActivity {
-    ApiService apiService;
     @BindView(R.id.emp_id_edittext)
     EditText empIdEditText;
 
@@ -45,20 +49,22 @@ public class SignInActivity extends BaseActivity {
     }
 
     @OnClick(R.id.perform_login_button) void onClickLogin() {
+        ApiService service = ApiClient.getApiService(SignInActivity.this);
         String empId = empIdEditText.getText().toString();
         if (empId.isEmpty()) {
             empIdEditText.setError("This field cannot be empty");
             return;
         }
-        Call<ResponseModelPayload<LoginPayload>> loginCall = apiService.loginEmployee(new LoginRequestModel(empId));
+        Call<ResponseModelPayload<LoginPayload>> loginCall = service.loginEmployee(new LoginRequestModel(empId));
         loginCall.enqueue(new Callback<ResponseModelPayload<LoginPayload>>() {
+            @SuppressLint("ApplySharedPref")
             @Override
             public void onResponse(@NonNull Call<ResponseModelPayload<LoginPayload>> call, @NonNull Response<ResponseModelPayload<LoginPayload>> response) {
                 if (response.body() == null) {
                     showToast("Some error occured, please try again.");
                 } else {
                     String token = response.body().getPayload().getToken();
-                    getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().putString(Constants.PREF_TOKEN, token).apply();
+                    getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().putString(Constants.PREF_TOKEN, token).commit();
                     performOtpAuth(token);
                 }
             }
@@ -71,12 +77,17 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void performOtpAuth(String token) {
-        Call<ResponseModelPayload<EmployeePayload>> fetchEmployeeCall = apiService.fetchEmployeeDetails();
+//        Log.d(TAG, "performOtpAuth: " + getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).getString(Constants.PREF_TOKEN, ""));
+        ApiService service = ApiClient.getApiService(SignInActivity.this, token);
+
+
+        Call<ResponseModelPayload<EmployeePayload>> fetchEmployeeCall = service.fetchEmployeeDetails();
         fetchEmployeeCall.enqueue(new Callback<ResponseModelPayload<EmployeePayload>>() {
             @Override
             public void onResponse(@NonNull Call<ResponseModelPayload<EmployeePayload>> call, @NonNull Response<ResponseModelPayload<EmployeePayload>> response) {
                 if (response.body() == null) {
                     showToast("Some error occurred, try again later.");
+                    Log.d(TAG, "onResponse: " + call.request().headers());
                 } else {
                     String phoneNo = response.body().getPayload().getEmployee().getPhoneNumber();
                     if (!phoneNo.startsWith("+")) {
@@ -89,7 +100,7 @@ public class SignInActivity extends BaseActivity {
                             Log.d(TAG, "onVerificationCompleted: " + "Auto-verified");
                             FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(SignInActivity.this, task -> {
                                 if (task.isSuccessful()) {
-                                    navigate(MainActivity.class);
+                                    navigateAndFinish(MainActivity.class);
                                 } else {
                                     Log.e(TAG, "onComplete: ", task.getException());
                                     if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
@@ -115,7 +126,7 @@ public class SignInActivity extends BaseActivity {
                         public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                             Intent intent = new Intent(SignInActivity.this, OtpAuthActivity.class);
                             intent.putExtra("v_id", verificationId);
-                            startActivity(intent);
+                            navigateAndFinish(intent);
                         }
                     });
                 }
@@ -133,7 +144,5 @@ public class SignInActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
-
-        apiService = ApiClient.getApiService(this);
     }
 }

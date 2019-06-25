@@ -7,28 +7,20 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.base.BaseActivity;
-import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EmployeePayload;
 import com.minosai.scoringapp.model.requestbody.RegisterRequestModel;
 import com.minosai.scoringapp.ui.home.MainActivity;
 
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {
@@ -48,6 +40,7 @@ public class RegisterActivity extends BaseActivity {
 
         ButterKnife.bind(this);
         apiService = ApiClient.getApiService(this);
+
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             navigate(MainActivity.class);
             finish();
@@ -109,16 +102,5 @@ public class RegisterActivity extends BaseActivity {
             return false;
         }
         return true;
-    }
-
-    private Meta parseError(Response<?> response) {
-        Converter<ResponseBody, Meta> converter = ApiClient.getRetrofit().responseBodyConverter(Meta.class, new Annotation[0]);
-        Meta error;
-        try {
-            error = converter.convert(Objects.requireNonNull(response.errorBody()));
-        } catch (Exception e) {
-            return new Meta();
-        }
-        return error;
     }
 }
