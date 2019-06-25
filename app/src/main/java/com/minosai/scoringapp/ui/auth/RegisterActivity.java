@@ -1,7 +1,5 @@
 package com.minosai.scoringapp.ui.auth;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -9,29 +7,20 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
 import com.minosai.scoringapp.R;
 import com.minosai.scoringapp.api.ApiClient;
 import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.base.BaseActivity;
-import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EmployeePayload;
 import com.minosai.scoringapp.model.requestbody.RegisterRequestModel;
 import com.minosai.scoringapp.ui.home.MainActivity;
-import com.minosai.scoringapp.util.Constants;
-
-import java.io.IOException;
-import java.lang.annotation.Annotation;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity {

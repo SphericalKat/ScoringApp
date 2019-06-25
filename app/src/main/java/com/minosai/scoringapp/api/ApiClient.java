@@ -12,9 +12,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://ec2-3-93-140-244.compute-1.amazonaws.com:5000/";
+    private static final String BASE_URL = "http://ec2-3-93-140-244.compute-1.amazonaws.com:5000/";
 
-    public static ApiService apiService = null;
+    private static ApiService apiService = null;
     private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {
@@ -61,7 +61,7 @@ public class ApiClient {
         return preferences.getString(Constants.PREF_TOKEN, "");
     }
 
-    public static OkHttpClient getOkHttpClient(String token) {
+    private static OkHttpClient getOkHttpClient(String token) {
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(chain -> {
