@@ -23,7 +23,7 @@ import com.minosai.scoringapp.api.ApiService;
 import com.minosai.scoringapp.model.Meta;
 import com.minosai.scoringapp.model.ResponseModel;
 import com.minosai.scoringapp.model.requestbody.EmpIdRequestModel;
-import com.minosai.scoringapp.ui.auth.SignInActivity;
+import com.minosai.scoringapp.ui.auth.RegisterActivity;
 import com.minosai.scoringapp.util.Constants;
 import com.minosai.scoringapp.util.CustomLinearLayout;
 
@@ -45,7 +45,7 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
     @BindView(R.id.settings_layout_main)
     ConstraintLayout mainLayout;
 
-    ApiService apiService;
+    private ApiService apiService;
 
     public static SettingsBottomSheetFragment getInstance() {
         SettingsBottomSheetFragment instance = new SettingsBottomSheetFragment();
@@ -68,10 +68,11 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
 
     @OnClick(R.id.settings_button_logout)
     void logoutOnClick() {
-        requireActivity().getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
+        Activity activity = requireActivity();
+        activity.getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(requireActivity(), SignInActivity.class));
-        requireActivity().finish();
+        startActivity(new Intent(activity, RegisterActivity.class));
+        activity.finish();
     }
 
     @OnClick(R.id.settings_button_update)
@@ -92,7 +93,7 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
         showLoading();
         apiService.updateEmployeeId(new EmpIdRequestModel(newId)).enqueue(new Callback<ResponseModel>() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+            public void onResponse(@NonNull Call<ResponseModel> call, @NonNull Response<ResponseModel> response) {
                 hideLoading();
                 if (response.body() == null) {
                     showSnackbar(getContext().getString(R.string.response_error), root);

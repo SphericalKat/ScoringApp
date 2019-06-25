@@ -1,5 +1,7 @@
 package com.minosai.scoringapp.ui.auth;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EmployeePayload;
 import com.minosai.scoringapp.model.requestbody.RegisterRequestModel;
 import com.minosai.scoringapp.ui.home.MainActivity;
+import com.minosai.scoringapp.util.Constants;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -48,7 +51,9 @@ public class RegisterActivity extends BaseActivity {
 
         ButterKnife.bind(this);
         apiService = ApiClient.getApiService(this);
-        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+        SharedPreferences prefs = getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null && !prefs.getString(Constants.PREF_TOKEN, "").equals("")) {
             navigate(MainActivity.class);
             finish();
         }
