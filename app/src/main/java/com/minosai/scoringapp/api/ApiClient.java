@@ -22,10 +22,7 @@ public class ApiClient {
     }
 
     public static ApiService getApiService(Context context, String token) {
-
         buildApiClient(context, token);
-
-
         return apiService;
     }
 
@@ -33,7 +30,6 @@ public class ApiClient {
         if (apiService == null) {
             buildApiClient(context, "");
         }
-
         return apiService;
     }
 

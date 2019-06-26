@@ -68,6 +68,7 @@ public class MainActivity extends BaseActivity implements EventClickListener {
         apiService.fetchEventsList().enqueue(new Callback<ResponseModelPayload<EventsPayload>>() {
             @Override
             public void onResponse(@NonNull Call<ResponseModelPayload<EventsPayload>> call, @NonNull Response<ResponseModelPayload<EventsPayload>> response) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (!response.isSuccessful()) {
                     showToast(MainActivity.this.getString(R.string.server_error));
                     try {
