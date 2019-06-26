@@ -50,7 +50,7 @@ public class SignInActivity extends BaseActivity {
 
     @OnClick(R.id.perform_login_button) void onClickLogin() {
         ApiService service = ApiClient.getApiService(SignInActivity.this);
-        String empId = empIdEditText.getText().toString();
+        String empId = empIdEditText.getText().toString().toUpperCase();
         if (empId.isEmpty()) {
             empIdEditText.setError("This field cannot be empty");
             return;

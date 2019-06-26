@@ -50,7 +50,7 @@
                 android:background="@drawable/bg_translucent_grey"
                 android:fontFamily="@font/manrope_semibold"
                 android:hint="@string/employee_id"
-                android:inputType="number"
+                android:inputType="textCapCharacters"
                 android:paddingStart="20dp"
                 android:textColor="@color/colorWhiteTranslucent"
                 android:textColorHint="@color/colorWhiteTranslucent"

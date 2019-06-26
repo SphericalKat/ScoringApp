@@ -57,7 +57,7 @@ public class RegisterActivity extends BaseActivity {
         if (!validateFields()) {
             return;
         }
-        String empId = empIdEditText.getText().toString();
+        String empId = empIdEditText.getText().toString().toUpperCase();
         String phoneNo = phoneEditText.getText().toString();
         if (phoneNo.startsWith("+")) {
             phoneNo = phoneNo.substring(3);
