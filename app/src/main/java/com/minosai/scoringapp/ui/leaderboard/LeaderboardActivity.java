@@ -98,9 +98,9 @@ public class LeaderboardActivity extends BaseActivity {
                         }
                     }
 
-                    for (Map.Entry<String, String> item : groupScoresMap.entrySet()) {
-                        groupScoresMap.put(item.getKey(), String.valueOf(Float.parseFloat(item.getValue())/events.size()));
-                    }
+//                    for (Map.Entry<String, String> item : groupScoresMap.entrySet()) {
+//                        groupScoresMap.put(item.getKey(), String.valueOf(Float.parseFloat(item.getValue())/events.size()));
+//                    }
 
                     for (Map.Entry<String, String> item : groupScoresMap.entrySet()) {
                         LeaderboardItem leaderboardItem = new LeaderboardItem();
