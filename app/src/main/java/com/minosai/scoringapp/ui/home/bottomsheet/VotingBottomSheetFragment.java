@@ -34,9 +34,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment {
+public class VotingBottomSheetFragment extends RoundedBottomSheetDialogFragment {
 
-    String TAG = this.getClass().getSimpleName();
+    private String TAG = this.getClass().getSimpleName();
 
     @BindView(R.id.vote_number_picker)
     NumberPicker voteNumberPicker;
@@ -49,13 +49,13 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
     @BindView(R.id.voting_layout_main)
     ConstraintLayout mainLayout;
 
-    ApiService apiService;
+    private ApiService apiService;
 
-    String eventId;
-    Group group;
+    private String eventId;
+    private Group group;
 
-    public static VotingBottomSheetFragnent newInstance(String eventId) {
-        VotingBottomSheetFragnent instance = new VotingBottomSheetFragnent();
+    public static VotingBottomSheetFragment newInstance(String eventId) {
+        VotingBottomSheetFragment instance = new VotingBottomSheetFragment();
         instance.initData(eventId);
         return instance;
     }
@@ -80,11 +80,24 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
         showLoading();
         apiService.fetchGroupsList(eventId).enqueue(new Callback<ResponseModelPayload<GroupsPayload>>() {
             @Override
-            public void onResponse(Call<ResponseModelPayload<GroupsPayload>> call,
-                                   Response<ResponseModelPayload<GroupsPayload>> response) {
+            public void onResponse(@NonNull Call<ResponseModelPayload<GroupsPayload>> call,
+                                   @NonNull Response<ResponseModelPayload<GroupsPayload>> response) {
                 hideLoading();
-                boolean toContinue = handleResponse(response.isSuccessful(), response.body().getMeta());
+                boolean toContinue;
+                try {
+                     toContinue = handleResponse(response.isSuccessful(), Objects.requireNonNull(response.body()).getMeta());
+                } catch (NullPointerException e) {
+                    Toast.makeText(requireContext(), "Some error occured", Toast.LENGTH_SHORT).show();
+                    dismiss();
+                    return;
+                }
                 if (!toContinue) {
+                    return;
+                }
+
+                if (response.body() == null) {
+                    Toast.makeText(requireContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
+                    dismiss();
                     return;
                 }
 
@@ -99,9 +112,9 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
             }
 
             @Override
-            public void onFailure(Call<ResponseModelPayload<GroupsPayload>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseModelPayload<GroupsPayload>> call, @NonNull Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getMessage());
-                Toast.makeText(getContext(), getContext().getString(R.string.network_error),
+                Toast.makeText(getContext(), requireContext().getString(R.string.network_error),
                         Toast.LENGTH_SHORT).show();
                 dismiss();
             }
@@ -111,7 +124,7 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
     private boolean handleResponse(boolean successful, Meta meta) {
 
         if (!successful) {
-            Toast.makeText(getContext(), getContext()
+            Toast.makeText(getContext(), requireContext()
                     .getString(R.string.server_error), Toast.LENGTH_SHORT).show();
             dismiss();
             return false;
@@ -151,7 +164,7 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
         showLoading();
         apiService.putGroupVote(model).enqueue(new Callback<ResponseModel>() {
             @Override
-            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+            public void onResponse(@NonNull Call<ResponseModel> call, @NonNull Response<ResponseModel> response) {
                 hideLoading();
 
                 if (response.body() == null) {
@@ -164,9 +177,9 @@ public class VotingBottomSheetFragnent extends RoundedBottomSheetDialogFragment 
             }
 
             @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseModel> call, @NonNull Throwable t) {
                 hideLoading();
-                showSnackbar(getContext().getString(R.string.network_error), root);
+                showSnackbar(requireContext().getString(R.string.network_error), root);
             }
         });
     }

@@ -17,7 +17,7 @@ import com.minosai.scoringapp.model.Event;
 import com.minosai.scoringapp.model.ResponseModelPayload;
 import com.minosai.scoringapp.model.payload.EventsPayload;
 import com.minosai.scoringapp.ui.home.bottomsheet.SettingsBottomSheetFragment;
-import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragnent;
+import com.minosai.scoringapp.ui.home.bottomsheet.VotingBottomSheetFragment;
 import com.minosai.scoringapp.ui.home.callback.EventClickListener;
 import com.minosai.scoringapp.ui.leaderboard.LeaderboardActivity;
 
@@ -106,12 +106,12 @@ public class MainActivity extends BaseActivity implements EventClickListener {
 
     @Override
     public void onEventClick(Event event) {
-        VotingBottomSheetFragnent votingBottomSheetFragnent
-                = VotingBottomSheetFragnent.newInstance(event.getId());
-        votingBottomSheetFragnent.setCancelable(false);
-        votingBottomSheetFragnent.show(
+        VotingBottomSheetFragment votingBottomSheetFragment
+                = VotingBottomSheetFragment.newInstance(event.getId());
+        votingBottomSheetFragment.setCancelable(false);
+        votingBottomSheetFragment.show(
                 getSupportFragmentManager(),
-                votingBottomSheetFragnent.getTag()
+                votingBottomSheetFragment.getTag()
         );
     }
 

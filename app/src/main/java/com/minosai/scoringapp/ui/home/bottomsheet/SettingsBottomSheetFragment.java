@@ -27,6 +27,8 @@ import com.minosai.scoringapp.ui.auth.RegisterActivity;
 import com.minosai.scoringapp.util.Constants;
 import com.minosai.scoringapp.util.CustomLinearLayout;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -48,8 +50,7 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
     private ApiService apiService;
 
     public static SettingsBottomSheetFragment getInstance() {
-        SettingsBottomSheetFragment instance = new SettingsBottomSheetFragment();
-        return instance;
+        return new SettingsBottomSheetFragment();
     }
 
     @Nullable
@@ -68,7 +69,8 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
 
     @OnClick(R.id.settings_button_logout)
     void logoutOnClick() {
-        Activity activity = requireActivity();
+        Activity
+                activity = requireActivity();
         activity.getSharedPreferences(Constants.PREF_FILE_NAME, Context.MODE_PRIVATE).edit().clear().apply();
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(activity, RegisterActivity.class));
@@ -78,8 +80,12 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
     @OnClick(R.id.settings_button_update)
     void updateOnClick() {
 
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(empIdEditText.getWindowToken(), 0);
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        try {
+            Objects.requireNonNull(imm).hideSoftInputFromWindow(empIdEditText.getWindowToken(), 0);
+        } catch (NullPointerException ignored) {
+        }
+
 
         String newId = empIdEditText.getText().toString();
         if (newId.isEmpty()) {
@@ -96,17 +102,24 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
             public void onResponse(@NonNull Call<ResponseModel> call, @NonNull Response<ResponseModel> response) {
                 hideLoading();
                 if (response.body() == null) {
-                    showSnackbar(getContext().getString(R.string.response_error), root);
+                    showSnackbar(requireContext().getString(R.string.response_error), root);
                 }
-                if (handleResponse(response.isSuccessful(), response.body().getMeta())) {
+
+                Meta meta = null;
+                try {
+                     meta = Objects.requireNonNull(response.body()).getMeta();
+                } catch (NullPointerException ignored) {
+                }
+
+                if (handleResponse(response.isSuccessful(), meta)) {
                     showSnackbar("Successfully updated employee ID", root);
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseModel> call, @NonNull Throwable t) {
                 hideLoading();
-                showSnackbar(getContext().getString(R.string.network_error), root);
+                showSnackbar(requireContext().getString(R.string.network_error), root);
             }
         });
     }
@@ -124,7 +137,7 @@ public class SettingsBottomSheetFragment extends RoundedBottomSheetDialogFragmen
     private boolean handleResponse(boolean successful, Meta meta) {
 
         if (!successful) {
-            Toast.makeText(getContext(), getContext()
+            Toast.makeText(getContext(), requireContext()
                     .getString(R.string.server_error), Toast.LENGTH_SHORT).show();
             dismiss();
             return false;
