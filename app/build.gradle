@@ -5,7 +5,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.minosai.scoringapp"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 10
         versionName "v1.0.3"
